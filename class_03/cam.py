@@ -10,7 +10,7 @@ def recognize_face(im):
     im = cv2.resize(im, (100, 100))
     im = im.flatten()
 
-    return get_name(im)
+    return "Shubham" #get_name(im)
 
 while True:
     _, fr = rgb.read()
