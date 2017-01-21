@@ -1,15 +1,18 @@
 import cv2
 # import numpy as np
 
-cam = cv2.VideoCapture(1)
 rgb = cv2.VideoCapture(0)
 facec = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-print facec
+# print facec
 font = cv2.FONT_HERSHEY_SIMPLEX
 
+def recognize_face(im):
+    im = cv2.resize(im, (100, 100))
+    im = im.flatten()
+
+    return get_name(im)
+
 while True:
-    ret, frame = cam.read()
-    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     _, fr = rgb.read()
     
     gray = cv2.cvtColor(fr, cv2.COLOR_BGR2GRAY)
@@ -18,11 +21,12 @@ while True:
     
     for (x,y,w,h) in faces:
         fc = fr[x:x+w, y:y+h, :]
-        cv2.putText(fr, 'Shubham', (x, y), font, 1, (255, 255, 0), 2)
+        out = recognize_face(fc)
+        cv2.putText(fr, out, (x, y), font, 1, (255, 255, 0), 2)
     	cv2.rectangle(fr,(x,y),(x+w,y+h),(255,0,0),2)
     
     cv2.imshow('rgb', fr)
-    cv2.imshow('cam', frame)
+    cv2.imshow('gray', gray)
     if cv2.waitKey(1) == 27:
         break
 
