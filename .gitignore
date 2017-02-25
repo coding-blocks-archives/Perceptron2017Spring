@@ -1,2 +1,4 @@
 class_03/data/*
 *.pyc
+
+*.npy
