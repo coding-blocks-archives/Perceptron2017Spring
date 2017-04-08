@@ -110,8 +110,8 @@ def sample(preds, temperature=1.0):
     exp_preds = np.exp(preds)
     preds = exp_preds / np.sum(exp_preds)
     probas = np.random.multinomial(1, preds, 1)
-    return probas
-    # return np.argmax(probas)
+    # return probas
+    return np.argmax(probas)
 
 
 # In[107]:
@@ -137,7 +137,8 @@ for iteration in range(1, 10):
               batch_size=128,
               epochs=1)
 
-    start_index = random.randint(0, len(text) - maxlen - 1)
+    # start_index = random.randint(0, len(text) - maxlen - 1)
+    start_index = len(text) - maxlen - 1
 
     for diversity in [0.2, 0.5, 1.0, 1.2]:
         print()
